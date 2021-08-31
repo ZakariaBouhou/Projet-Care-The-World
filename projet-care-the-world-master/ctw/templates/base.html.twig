@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+    <head>
+       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+       <link rel="shortcut icon" href="#" type="image/x-icon">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+            {# Just for specific(s) route(s) : map CSS #}
+                {% if app.request.get('_route') == 'home' %}
+                    <!-- leaflet CSS -->
+                    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+                        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+                        crossorigin="" />
+                    <!-- cluster css -->
+                    <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.css"/>
+                    <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.Default.css"/>
+                {% endif %}
+            <link rel="stylesheet" href="https://bootswatch.com/4/minty/bootstrap.min.css">
+            {# FAV ICON #}
+            <link rel="icon" type="image/png" href="{{ asset('img/logo/logo_favicon.png')}}" />
+            {# CUSTOM CSS #}
+            <link rel="stylesheet" href="{{ asset('css/style.css')}}">
+        {% endblock %}
+    </head>
+    <body>
+        {% block body %}                
+            <div class="container-fluid p-0 min-vh-100 d-flex flex-column justify-content-between">
+                {% block header %}
+                    <header>
+
+                        <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top pt-1 pb-1 pr-1 pl-3">
+                            <a class="navbar-brand" href="{{ path('home') }}"><img class="logo mr-3 pb-2" src="{{asset ('img/logo/logoblank2.png') }}">Care The World</a>
+
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+
+
+                        <div class="collapse navbar-collapse row justify-content-end mr-2 text-left" id="navbarColor01">
+                            <ul class="navbar-nav">
+                                <li class="nav-item dropdown text">
+                                    <a class="nav-link dropdown-toggle text-white text-right" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Evènements</a>
+                                    <div class="dropdown-menu text-right">
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                            <a class="dropdown-item text-right" href="{{ path('admin_event_browse') }}">Modération<sup><span class="badge rounded-pill bg-secondary">Admin</span></sup></a>
+                                        {% endif %}
+                                        <a class="dropdown-item text-right" href="{{ path('event_browse') }}">Liste des évènements</a>
+                                        {% if is_granted('ROLE_USER') %}
+                                            <a class="dropdown-item text-right" href="{{ path('event_add') }}">Création d'un évènement</a>
+                                        {% endif %}
+                                    <div>
+                                </li>
+
+                                {% if is_granted('ROLE_USER') %}
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle text-white  text-right" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                        Bonjour <span class="font-weight-bold">{{ app.user.firstname }}</span>
+                                        <span class="text-danger">{{ app.user.roles[0] == 'ROLE_ADMIN' ?  '<sup><span class="badge rounded-pill bg-secondary">Admin</span></sup>' }}</span>
+
+                                    </a>
+
+                                    <div class="dropdown-menu  text-right">
+                                        <a class="dropdown-item  text-right" href="{{ path('profile') }}">Mon profil</a>
+                                        <a class="dropdown-item  text-right" href="{{ path('app_logout') }}">Se déconnecter</a>
+
+                                    <div>
+                                </li>
+                                {% else %}
+                                    <li class="nav-item">
+                                    <a class="nav-link text-white" href="{{ path('inscription') }}">Je m'inscris !</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" href="{{ path('app_login') }}">Se connecter</a>
+                                </li>
+                                {% endif %}
+                                                                
+                            </ul>
+
+                        </div>
+                    </nav>
+                </header>
+            {% endblock %}
+        
+            <main class="flex-grow-1 d-flex flex-column">
+                {% block main %}{% endblock %}
+            </main>
+         
+            {% block footer %}
+                <footer>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <ul class="nav-footer pl-0">
+                                    <li class="footer__li"><a class="li__link text-white text-decoration-none" href="{{ path('legals') }}">- Mentions légales -</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            {% endblock %}
+        </div>
+        {% endblock %}
+       
+        {% block javascripts %}
+        {% endblock %}
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+        <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+
+        {# Just for specific(s) route(s) : event_browse #}
+        {% if app.request.get('_route') == 'event_browse' %}
+            <script src="{{ asset('js/eventsFilters.js')}}"></script>
+        {% endif %}
+
+        {# Just for specific(s) route(s) : map JS #}
+        {% if app.request.get('_route') == 'home' %}
+            <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+            {# marker cluster #}
+            <script type='text/javascript' src='https://unpkg.com/leaflet.markercluster@1.3.0/dist/leaflet.markercluster.js'></script>
+            {# connect to own API #}
+            <script src="{{ asset('js/api.js')}}"></script>
+            {# INTERACTIVE MAP JS #}
+            <script src="{{ asset('js/map.js')}}"></script>
+        {% endif %}  
+    </body>
+</html>

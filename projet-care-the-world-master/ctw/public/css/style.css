@@ -1,0 +1,241 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    margin-top: 53px;
+}
+
+#mapid {
+    width: 100%;
+    height: 600px;
+}
+
+.site-content {
+    flex:1;
+}
+
+.margin-top-10 {
+    margin-top: 10%;
+}
+
+footer {
+    background-color: #78c2ad;
+}
+
+.nav-footer {
+    list-style:none;
+    display: flex;
+    justify-content: center;
+}
+
+.footer__li__link, 
+.footer__li__link:hover  {
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px 0 15px;
+}
+
+
+#landing-background {
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    width: 100%;
+    animation: fondu 60s infinite;
+}
+
+@keyframes fondu{
+    0%{background-image: url('../img/paysage.jpg');}
+    24%{background-image: url('../img/planting.jpg');}
+    34%{background-image: url('../img/gardening.jpg');}
+    51%{background-image: url('../img/other.jpg');}
+    68%{background-image: url('../img/solidarity.jpg');}
+    87%{background-image: url('../img/walk.jpg');}
+    100%{background-image: url('../img/clean.jpg');}
+}
+
+#landing-img {
+    align-self: center;
+    width: 100%;
+}
+
+#landing-background > h1 {
+    font-size: 4rem;
+    color: white;
+}
+
+#text-actions {
+    font-size: 1.5rem;
+}
+
+.card {
+    width: 20rem;
+}
+
+footer {
+    background-color: #78c2ad;
+}
+
+.nav-footer {
+    list-style:none;
+    display: flex;
+    justify-content: center;
+}
+
+.footer__li, .footer__li:hover  {
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px 0 15px;
+}
+
+.flash-home {
+    position: absolute;
+}
+
+/* !Card start */
+.bg-light {
+    color: rgb(128, 128, 128);
+}
+
+.more {
+    text-align: center;
+    line-height: 200px;
+}
+
+.head__picture {
+    height: 150px;
+    width: 100vw;
+    margin-top : 10px;
+}
+
+.card-detail {
+    width: 20rem;
+}
+
+.card-header-detail {
+    background-color: #78C2AD;
+    color : white ;
+    font-weight: bold;
+    height: 72px;
+}
+
+.card-header-detail-read {
+    background-color: #78C2AD;
+    color : white ;
+    font-weight: bold;
+}
+
+.card-header-archive {
+    height: 72px;
+}
+
+.div-image {
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 200px;
+}
+
+/* .picture-detail {
+    width: 100%;
+    height:200px; 
+    max-width: 100%;
+    height: auto; 
+
+} */
+
+.participants-list {
+    max-height: 200px;
+}
+
+.card-comment {
+    width: 85%;
+}
+
+.div-button-report {
+    text-align: end;
+}
+
+.button-report {
+    font-size: 0.7rem;
+    width: 95px;
+}
+
+.footer-profile {
+    height: 172px;
+}
+
+
+/* !Card end */
+/* ------------------------ Team Section ------------------------ */
+.team4 h1, .team4 h2, .team4 h3, .team4 h4, .team4 h5, .team4 h6 {
+    color: #3e4555;
+  }
+  
+  .team4 .font-weight-medium {
+      font-weight: 500;
+  }
+  
+  .team4 h5 {
+      line-height: 22px;
+      font-size: 18px;
+  }
+  
+  .team4 .subtitle {
+      color: #8d97ad;
+      line-height: 24px;
+          font-size: 13px;
+  }
+  
+  .team4 ul li a {
+    color: #8d97ad;
+    padding-right: 15px;
+    -webkit-transition: 0.1s ease-in;
+    -o-transition: 0.1s ease-in;
+    transition: 0.1s ease-in;
+  }
+  
+  .team4 ul li a:hover {
+    -webkit-transform: translate3d(0px, -5px, 0px);
+    transform: translate3d(0px, -5px, 0px);
+      color: #316ce8;
+  }
+  /* ------------------------------------------------------------ */
+
+  .float-message {
+      position: absolute;
+      top: 65px;
+      right: 42px;
+  }
+
+@media (min-width : 992px ) {
+
+    .content-detail-large {
+        display: flex;
+        padding: 0;
+    }
+
+    /* .picture-detail {
+        width: 500px;
+        height:auto;
+    } */
+    
+    .div-image-large {
+        background-size: cover;
+        background-position: center;
+        width: 40%;
+        height: auto;
+    }
+
+    .card-body-large {
+        width: 60%;
+    }
+    
+
+}  
+
+
+

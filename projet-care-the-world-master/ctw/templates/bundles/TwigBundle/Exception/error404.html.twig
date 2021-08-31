@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}404 Not Found{% endblock %}
+
+{% block main %}
+    <div class="container-fluid d-flex flex-column justify-content-around flex-grow-1 col-sm-12 col-md-8 col-lg-4">
+        <div class="">
+            <h1 class="display-1">
+                Oups...
+            </h1>
+    
+            <p class="">
+                Il semblerait que vous vous soyez égaré...
+            </p>
+    
+            <p>
+                Erreur: <span class="badge bg-danger p-1">404</span>
+            </p>
+
+            <p>
+                Peut-etre pourriez vous retourner voir la <a href="{{ path('event_browse')}}">liste des évènements</a> et voir s'il y en a un qui vous correspond ?  
+            </p>
+
+    
+        </div>
+            <img src="{{ asset('img/404.svg') }}" class="w-100" alt="Illustration de la page 404">
+    </div>
+{% endblock %}

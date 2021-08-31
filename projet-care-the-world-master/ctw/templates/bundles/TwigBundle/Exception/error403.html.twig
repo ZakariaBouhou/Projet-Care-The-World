@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}403 Forbidden{% endblock %}
+
+{% block main %}
+    <div class="container-fluid d-flex flex-column justify-content-around flex-grow-1 col-sm-12 col-md-8 col-lg-4">
+        <div class="">
+            <h1 class="display-3">
+                Hop hop hop petit curieux !
+            </h1>
+    
+            <p class="">
+                L'accés est interdit aux non-admins !
+            </p>
+    
+            <p>
+                Erreur: <span class="badge bg-danger p-1">403</span>
+            </p>
+
+        </div>
+            <img src="{{ asset('img/403.svg') }}" class="w-100" alt="Illustration de la page 403">
+    </div>
+{% endblock %}

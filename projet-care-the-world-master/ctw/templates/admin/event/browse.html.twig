@@ -1,0 +1,162 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Evènements{% endblock %}
+
+{% block main %}
+
+    <div class="float-message">
+        {% for type, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="flash-message alert alert-dismissible alert-{{ type }}">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+
+<div class="container-lg d-flex justify-content-center">
+    <h1>Liste des Evènements</h1>
+</div>
+
+<div class="container-xxl d-flex justify-content-around mt-3">
+    
+    
+    {# LEFT MENU #}
+    <div class="w-25 pl-5 pr-1">
+        <div>
+            <h2>Filtres</h2>
+            <p>Cliquer ci-dessous pour filtrer les données en fonction de leur classification "vérifié" et/ou "status"</p>
+            <h3>Vérifé</h3>
+            <p>Défini si l'événement est validé par un administrateur</p>
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center {{ is_verified == "all" ? 'bg-light disabled' }}">
+                    <a href="{{ path('admin_event_browse', {is_verified: "all", status:status}) }}">Tous</a>
+                    <span class="badge bg-primary rounded-pill">{{ stats['allEvents'] }}</span>
+                </li>
+
+                <li class="list-group-item d-flex justify-content-between align-items-center {{ is_verified == 0 ? 'bg-light disabled' }}">
+                    <a
+                        role="button"
+                        class="btn btn-link p-0" 
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="Nouveaux évènements en attente de validation par un administrateur"
+                        href="{{ path('admin_event_browse', {is_verified: 0, status:status}) }}">Non vérifiés
+                    </a>
+                    <span class="badge bg-secondary rounded-pill">{{ stats['noVerified'] }}</span>
+
+                <li class="list-group-item d-flex justify-content-between align-items-center {{ is_verified == 1 ? 'bg-light disabled' }}">
+                    <a 
+                        role="button"
+                        class="btn btn-link p-0" 
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="Evènements bloqués par un administrateur et non visibles sur le site"
+                        href="{{ path('admin_event_browse', {is_verified: 1, status:status}) }}">Bloqués
+                    </a>
+                    <span class="badge bg-danger rounded-pill">{{ stats['blocked'] }}</span>
+                </li>
+
+                <li class="list-group-item d-flex justify-content-between align-items-center {{ is_verified == 2 ? 'bg-light disabled' }}">
+                    <a
+                        role="button"
+                        class="btn btn-link p-0" 
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="Evènements déjà activés par un administrateur et visibles sur le site"
+                        href="{{ path('admin_event_browse', {is_verified: 2, status:status}) }}">Actifs
+                    </a>
+                    <span class="badge bg-success rounded-pill">{{ stats['active'] }}</span>
+                </li>
+
+            </ul>
+        </div>
+        <div class="mt-5">
+            <h3>Statut</h3>
+            <p>Soit l'évènement est accessible (en cours), soit annulé par le créateur (annulé) soit terminé et archivé par un administrateur (archivé)</p>
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center {{ status == "all" ? 'bg-light disabled' }}">
+                    <a href="{{ path('admin_event_browse', {is_verified:is_verified, status:"all"}) }}">Tous
+                    </a>
+                    <span class="badge bg-primary rounded-pill">{{ stats['allEvents'] }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center {{ status == 0 ? 'bg-light disabled' }}">
+                    <a 
+                        role="button"
+                        class="btn btn-link p-0" 
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="Actifs et visibles sur le site : la date n'est pas encore échue"
+                        href="{{ path('admin_event_browse', {is_verified:is_verified, status:0}) }}">En cours
+                    </a>
+                    <span class="badge bg-success rounded-pill">{{ stats['statusActive'] }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center {{ status == 1 ? 'bg-light disabled' }}">
+                    <a  
+                        role="button"
+                        class="btn btn-link p-0" 
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="Annulés par leur créateur"
+                        href="{{ path('admin_event_browse', {is_verified:is_verified, status:1}) }}">Annulés</a>
+                    <span class="badge bg-danger rounded-pill">{{ stats['statusCanceled'] }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center {{ status == 2 ? 'bg-light disabled' }}">
+                    <a  
+                        role="button"
+                        class="btn btn-link p-0"
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="Evènements arrivés à échéance et archivés par un administrateur"
+                        href="{{ path('admin_event_browse', {is_verified:is_verified, status:2}) }}">Archivés</a>
+                    <span class="badge bg-secondary rounded-pill">{{ stats['statusFinished'] }}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    {# EVENTS LIST #}
+    <div class="w-100 ml-3 pl-5 pr-5">
+        <h2>Evènements ({{ events|length }})</h2>
+        <p>Cliquer sur le lien de l'évènement pour accèder à la gestion de celui-ci</p>
+        <table class="table table-hover table-striped mt-3">
+            <thead>
+                <tr>
+                    <th scope="col">Titre</th>
+                    <th scope="col">Date Création</th>
+                    <th scope="col">Catégorie</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Date Début</th>
+                    <th scope="col">Date Fin</th>
+                    <th scope="col">CP</th>
+                    <th scope="col">Ville</th>
+                    {% if is_verified is defined %}
+                        <th scope="col">Action</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for event in events %}
+                <tr>
+                    <td><span class="font-weight-bold">{{ event.title }}</span></td>
+                    <td>{{ event.createdAt|date('d/m/y')}}</td>
+                    <td>{{ event.category }}</td>
+                    <td>{{ (event.description|striptags)|u.truncate(50,'...')|raw }}</td>
+                    <td>{{ event.startAt|date('d/m/y') }}</td>
+                    <td>{{ event.endAt|date('d/m/y') }}</td>
+                    <td>{{ event.zipCode}}</td>
+                    <td>{{ event.city }}</td>
+                    <td><a href="{{ path('event_read', {id:event.id}) }}"</a>Accéder à l'évènement</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('/js/flashes-messages.js') }}"></script>
+{% endblock %}

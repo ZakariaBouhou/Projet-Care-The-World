@@ -1,0 +1,5 @@
+A Executer dans l'ordre
+
+composer require friendsofsymfony/ckeditor-bundle
+bin/console ckeditor:install
+bin/console assets:install public

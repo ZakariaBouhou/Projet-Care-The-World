@@ -1,0 +1,41 @@
+<div class="card card-detail border-primary mt-3 mb-3 mr-0 d-flex flex-column justify-content-between card-template">
+    <div class="card-header card-header-detail d-flex align-items-center ">
+        <h5 class="m-0 p-0 text-break">
+            {# 35 characters max #}
+            {{event.title}}
+        </h5>
+    </div>
+    <div class="content-detail">
+            <div class="div-image" style="background-image:url({{ asset ('img/categories/' ~ event.category.name ~ '/' ~ event.image) }})">
+            </div> 
+
+            <div class="d-flex flex-column justify-content-between">
+
+                <div class="card-body h-80 p-3">            
+                    <a href="{{ path('category_read', {id:event.category.id}) }}">
+                    
+                        <span class="badge 
+                            {{ event.category.name == 'Plantation' ?  'bg-primary' }}
+                            {{ event.category.name == 'Autre' ?  'bg-danger' }}
+                            {{ event.category.name == 'Sortie' ?  'bg-warning' }}
+                            {{ event.category.name == 'Jardinage' ?  'bg-success' }}
+                            {{ event.category.name == 'Nettoyage' ?  'bg-info' }}
+                            {{ event.category.name == 'Solidarité' ?  'bg-secondary'}}
+
+                        ">
+                            {{ event.category.name }}
+                        </span>
+                    </a>
+                    <p class="card-text h-20 text-truncate">{{ (event.description|striptags)|raw }}</p>              
+
+                    <p class="mb-0"><span class="font-weight-bold">De: </span>{{event.createdBy.firstname|capitalize}} {{event.createdBy.lastname|u.truncate(2, '.')|capitalize}}</p>
+
+                    <p class="mb-0"><span class="font-weight-bold">Lieu: </span>{{ event.city }}</p>
+                    <p class="mb-0"><span class="font-weight-bold">Du: </span>{{ event.startAt is not null ? event.startAt|date('d/m/y') : '' }}<span class="font-weight-bold"> au </span>{{ event.endAt is not null ? event.endAt|date('d/m/y') : '' }} </p>
+                </div>
+            </div>
+    </div>
+    <div class="card-footer text-muted d-flex justify-content-end mb-0">
+        <a href="{{ path('event_read', {id:event.id}) }}" class="btn btn-primary">Voir l'évènement</a> 
+    </div>
+</div>

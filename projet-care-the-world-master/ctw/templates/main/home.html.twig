@@ -1,0 +1,309 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Care The World
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('/js/flashes-messages.js') }}"></script>
+{% endblock %}
+
+{% block main %}
+
+
+	<div class="flash-home row mt-3 align-self-start ml-1">
+		{% for type, messages in app.flashes %}
+		{% for message in messages %}
+			<div class="flash-message alert alert-dismissible alert-{{ type }}">
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			{{ message }}
+			</div>
+		{% endfor %}
+		{% endfor %}
+	</div>
+	
+	<div id="landing-background" class="d-flex flex-column justify-content-center align-items-center mt-0 mb-3">
+		<img class="logo mr-5" src="{{asset ('img/logo/caretheworld.png') }}">
+		<h1 class="text-center mt-3">Care the world</h1>
+	</div>
+
+	<div class="container-lg">
+
+
+		<div class="m-0">
+			<h2>
+				<sup>
+					<span class="iconify" data-icon="clarity:block-quote-line" data-inline="false"></span>
+				</sup>
+					La nature a besoin de vous
+				<sub>
+					<span class="iconify" data-icon="clarity:block-quote-line" data-inline="false" data-rotate="180deg"></span>
+				</sub>
+			</h2>
+			<p>
+				Partagez vos projets de sauvegarde de la nature !
+			</p>
+			<p>
+				Vous pouvez vous inscrire gratuitement et créer des évènements collaboratifs et bénévoles autour du thème de notre belle planète. Vous pouvez par exemple trouver/proposer un projet de nettoyage des détritus, plantation d’arbres, sorties pédagogiques…
+				Le but de notre projet est de créer du lien social et de protéger la nature.
+			</p>
+				Ce projet a été réalisé dans le cadre de notre formation de développeur Web chez O’clock, que nous vous conseillons vivement.
+			</p>
+			<p>
+				<a href="https://oclock.io/">Pour en savoir plus sur O’clock cliquez ici.</a>
+			</p>
+		</div>
+
+		{# actions banner #}
+		<div class="d-flex justify-content-around flex-wrap text-white bg-primary m-0 mb-3 pt-3 pb-3">
+			<div>
+				<h3 class="align-self-start m-1">Nos actions</h3>
+			</div>
+			<div>
+				<p id="text-actions" class="align-self-right m-1"><span class="iconify" data-icon="si-glyph:shovel" data-inline="false" style="color: #fff;"></span> {{ allEvents }} projets en cours</p>
+				<p id="text-actions" class="align-self-right m-1"><span class="iconify" data-icon="fluent:people-24-filled" data-inline="false" style="color: #fff;"></span> {{ allUsers }} participants</p>
+			</div>
+			<div>
+				<span class="iconify" data-icon="ion:earth-sharp" data-inline="false" style="font-size: 5rem; color: #fff;"></span>
+			</div>
+		</div>
+		{# end banner #}
+
+		{# INTERACTIV MAP #}
+		<div class="mb-1">
+			<div id="mapid"></div>
+		</div>
+		{# END MAP #}
+
+		{# CARDS #}
+		{# justify-content-center : default #}
+		{# justify-content-sm-around : from small screens 567px #}
+		{# justify-content-lg-between : from Xtra-large screens 1200px #}
+		<div class="d-flex justify-content-center justify-content-sm-around justify-content-xl-between flex-wrap mb-3">
+
+		{# EACH CARD #}
+		{% for event in events %}
+
+
+			{% include "event/_card-template.html.twig" %}
+
+			
+		{% endfor %}
+
+			{# <div class="card card-detail border-primary mt-3 mb-3 mr-0 d-flex flex-column justify-content-between">
+				<div class="card-header card-header-detail">...
+				</div>
+				<div class="content-detail">
+					<img src="https://thumbs.gfycat.com/UnfinishedPettyHarrier-size_restricted.gif" class="d-block user-select-none" width="100%" height="200" role="img">
+					<div class="card-body ">
+						<div class="d-flex justify-content-center">
+							<h4 class="card-title more"><a href="{{ path('event_browse') }}">Voir plus...</a></h4>
+						</div>
+					</div>
+				</div>
+			</div> #}
+		</div>
+		<div class="text-right">
+			<p class="h5"><a href="{{ path('event_browse') }}">Cliquez ici pour plus d'évènements...</a></p>
+		</div>
+		{# END CARDS #}
+		
+		{# BLOCK TEAM #}
+			<div class="py-5 team4">
+				<div class="container">
+					<div class="row justify-content-center mb-4">
+						<div class="col-md-7 text-center">
+							<h3 class="mb-3">Notre Equipe</h3>
+						</div>
+					</div>
+					<div class="row justify-content-around">
+						<!-- column  -->
+						<!-- column  -->
+						<div class="col-lg-2 mb-4">
+							<!-- Row -->
+							<div class="row">
+								<div class="col-md-12 text-center">
+									<img src="img/team/sonia.png"
+										alt="wrapkit" class="img-fluid rounded-circle" />
+								</div>								
+
+								<div class="col-md-12 text-center">
+									<div class="pt-0">
+										<h5 class="mt-2 font-weight-medium mb-0">Sonia</h5>
+										<h6 class="subtitle mb-0">Lead Developper Back</h6>
+										<ul class="list-inline">
+											<li class="list-inline-item">
+
+												<a href="https://www.linkedin.com/in/soniacarmon/" class="text-decoration-none d-block px-1">
+													<span class="iconify" data-icon="foundation:social-linkedin" data-inline="false"></span>
+												</a>
+											</li>
+											<li class="list-inline-item">											
+												<a href="mailto:carmon.sonia@gmail.com" class="text-decoration-none d-block px-1">
+												<span class="iconify" data-icon="carbon:email" data-inline="false"></span>
+												</a>
+											</li>
+											<li class="list-inline-item">
+												<a href="https://github.com/SoniaCa" class="text-decoration-none d-block px-1">
+													<span class="iconify" data-icon="foundation:social-github" data-inline="false"></span>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<!-- Row -->
+						</div>
+						<!-- column  -->
+						<!-- column  -->
+						<div class="col-lg-2 mb-4">
+							<!-- Row -->
+							<div class="row">
+								<div class="col-md-12 text-center">
+									<img src="img/team/thomas.jpg"
+										alt="wrapkit" class="img-fluid rounded-circle" />
+								</div>
+								<div class="col-md-12 text-center">
+									<div class="pt-0">
+										<h5 class="mt-2 font-weight-medium mb-0">Thomas</h5>
+										<h6 class="subtitle mb-0">Git Master</h6>
+										<ul class="list-inline">
+											<li class="list-inline-item">
+												<a href="#" class="text-decoration-none d-block px-1">
+													<span class="iconify" data-icon="foundation:social-linkedin" data-inline="false"></span>
+												</a>
+											</li>
+											<li class="list-inline-item">
+												<a href="#" class="text-decoration-none d-block px-1">
+													<span class="iconify" data-icon="carbon:email" data-inline="false"></span>
+												</a>
+											</li>
+											<li class="list-inline-item">
+												<a href="#" class="text-decoration-none d-block px-1">
+													<span class="iconify" data-icon="foundation:social-github" data-inline="false"></span>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<!-- Row -->
+						</div>
+						<!-- column  -->
+						<!-- column  -->
+						<div class="col-lg-2 mb-4">
+							<!-- Row -->
+							<div class="row">
+								<div class="col-md-12 text-center">
+									<img src="img/team/guillaume.jpg"
+										alt="wrapkit" class="img-fluid rounded-circle" />
+								</div>
+								<div class="col-md-12 text-center">
+									<div class="pt-0">
+										<h5 class="mt-2 font-weight-medium mb-0">Guillaume</h5>
+										<h6 class="subtitle mb-0">Lead Developper Front</h6>
+										<ul class="list-inline">
+											<li class="list-inline-item">
+												<a href="https://www.linkedin.com/in/guillaume-dupont-a66461105/" class="text-decoration-none d-block px-1">
+													<span class="iconify" data-icon="foundation:social-linkedin" data-inline="false"></span>
+												</a>
+											</li>
+											<li class="list-inline-item">
+												<a href="mailto:uillaume.dupont@outlook.fr" class="text-decoration-none d-block px-1">
+													<span class="iconify" data-icon="carbon:email" data-inline="false"></span>
+												</a>
+											</li>
+											<li class="list-inline-item">
+												<a href="https://github.com/Lync78" class="text-decoration-none d-block px-1">
+													<span class="iconify" data-icon="foundation:social-github" data-inline="false"></span>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<!-- Row -->
+						</div>
+						<!-- column  -->
+						<!-- column  -->
+						<div class="col-lg-2 mb-4">
+							<!-- Row -->
+							<div class="row">
+								<div class="col-md-12 text-center">
+									<img src="img/team/zak.jpg"
+										alt="wrapkit" class="img-fluid rounded-circle" />
+								</div>
+								<div class="col-md-12 text-center">
+									<div class="pt-0">
+										<h5 class="mt-2 font-weight-medium mb-0">Zakaria</h5>
+										<h6 class="subtitle mb-0">Scrum Master</h6>
+										<ul class="list-inline">
+											<li class="list-inline-item">
+												<a href="https://www.linkedin.com/in/zakariabouhou/" class="text-decoration-none d-block px-1">
+													<span class="iconify" data-icon="foundation:social-linkedin" data-inline="false"></span>
+												</a>
+											</li>
+											<li class="list-inline-item">
+												<a href="mailto:zak.bouhou@outlook.fr" class="text-decoration-none d-block px-1">
+													<span class="iconify" data-icon="carbon:email" data-inline="false"></span>
+												</a>
+											</li>
+											<li class="list-inline-item">
+												<a href="https://github.com/ZakariaBouhou" class="text-decoration-none d-block px-1">
+													<span class="iconify" data-icon="foundation:social-github" data-inline="false"></span>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<!-- Row -->
+						</div>
+						<!-- column  -->
+						<!-- column  -->
+						<div class="col-lg-2 mb-4">
+							<!-- Row -->
+							<div class="row">
+								<div class="col-md-12 text-center">
+									<img src="img/team/cedric.jpg"
+										alt="wrapkit" class="img-fluid rounded-circle" />
+								</div>
+								<div class="col-md-12 text-center">
+									<div class="pt-0">
+										<h5 class="mt-2 font-weight-medium mb-0">Cédric</h5>
+										<h6 class="subtitle mb-0">Product Owner</h6>
+										<ul class="list-inline">
+											<li class="list-inline-item">
+												<a href="https://www.cedric-jacquot.fr" class="text-decoration-none d-block px-1">
+													<span class="iconify" data-icon="zmdi:http" data-inline="false"></span>
+												</a>
+											</li>
+											<li class="list-inline-item">
+												<a href="https://www.linkedin.com/in/cedricjacquot" class="text-decoration-none d-block px-1">
+													<span class="iconify" data-icon="foundation:social-linkedin" data-inline="false"></span>
+												</a>
+											</li>
+											<li class="list-inline-item">
+												<a href="mailto:cedric-jacquot.fr" class="text-decoration-none d-block px-1">
+													<span class="iconify" data-icon="carbon:email" data-inline="false"></span>
+												</a>
+											</li>
+											<li class="list-inline-item">
+												<a href="https://github.com/cedric-jacquot" class="text-decoration-none d-block px-1">
+													<span class="iconify" data-icon="foundation:social-github" data-inline="false"></span>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<!-- Row -->
+						</div>
+					</div>
+				</div>
+			</div>
+		{# END BLOCK TEAM #}
+		</div>	
+		
+	</div>
+
+{% endblock %}

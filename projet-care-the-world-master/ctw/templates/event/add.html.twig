@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création d'un événement{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('/js/app_event_gouv.js') }}"></script>
+{% endblock %}
+{% block main %}
+    <div class="container-fluid">
+        <div class="mt-5 text-center">
+             <h1 class="h3 mb-3 font-weight-normal">Création d'un événement</h1>
+        </div>
+        <div class="d-flex justify-content-center">
+            <div class="row align-items-center" style="width:90%;">
+                <div class="col-8 col-md-6 ml-auto mr-auto mb-4">
+                    <img class="w-100 align-middle" src="{{ asset('img/event.svg')}}" alt="">
+                </div>
+
+                <div class="mw-75 col-md-6">
+                    <div class="mb-5">
+                        {{ form_start(form)}}
+                            <div class="form-group">
+                                <label for="title" class="">Titre de l'événement</label>
+                                {{ form_errors(form.title) }} 
+                                <div class="">
+                                    {{ form_widget (form.title) }}
+                                    <small>Le titre doit faire 35 carractères maximum</small>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="description" class="">Description</label>
+                                {{ form_errors(form.description) }} 
+                                <div class="">
+                                    {{ form_widget (form.description) }}
+                                    <small>Notice: veuillez marquer le matériel nécessaire et les informations complémentaires</small>
+                                </div>    
+                            </div>
+                            <div class="form-group">
+                                <label for="category" class="">Selectionner une catégorie</label>
+                                {{ form_errors(form.category) }} 
+                                <div class="">
+                                    {{ form_widget (form.category, {'attr': {'class': 'form-control'}}) }}
+                                </div>    
+                            </div>
+                            <div class="form-group">
+                                <label for="zipCode" class="">Code Postal</label>
+                                {{ form_errors(form.zipCode) }} 
+                                <div class="">
+                                    {{ form_widget (form.zipCode) }}
+                                </div>    
+                            </div>
+                            <div class="form-group">
+                                <label for="ville" class="">Ville</label>
+                                {{ form_errors(form.city) }} 
+                                <div class="">
+                                    {{ form_widget (form.city, { 'full_name': 'city'}) }}
+                                </div>    
+                                <small>Saisissez le code postal pour sélectionner une ville</small>
+                            </div>
+                            {# 
+                            <div class="form-group row">
+                                <label for="image" class="col-sm-2 col-form-label">Photo</label>
+                                <div class="col-sm-4">
+                                    <div class="custom-file">
+                                        {{ form_widget (form.image) }}
+                                        <label class="custom-file-label" for="inputGroupFile02">Choisir un fichier</label>
+                                        <small>Seules les fichiers pnj, jpg et jpeg sont autoriées.</small>
+                                    </div>
+                                </div>
+                            </div>
+                            #}
+                            <div class="form-group">
+                                <label for="startAt" class="">Debut de l'événement</label>
+                                {{ form_errors(form.startAt) }} 
+                                <div class="">
+                                    {{ form_widget (form.startAt) }}
+                                </div>    
+                            </div>
+                            <div class="form-group">
+                                <label for="endAt" class="">Fin de l'événement</label>
+                                {{ form_errors(form.endAt) }} 
+                                <div class="">
+                                    {{ form_widget (form.endAt) }}
+                                </div>    
+                            </div>
+                            <button type="submit" class="btn btn-primary">Créer</button>
+                        {{form_end(form)}}
+                    </div>
+                </div> 
+            </div>  
+        </div>
+    </div>
+{% endblock %}

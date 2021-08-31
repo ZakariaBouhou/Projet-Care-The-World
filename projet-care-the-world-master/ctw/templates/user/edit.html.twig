@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edition du profil{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('/js/app_profile_gouv.js') }}"></script>
+{% endblock %}
+{% block main %}
+  <div class="container-fluid">
+        <div class="mt-5 text-center">
+             <h1 class="h3 mb-3 font-weight-normal">Edition du profil</h1>
+        </div>
+        <div class="d-flex justify-content-center">
+            <div class="row align-items-center" style="width:90%;">
+                <div class="col-8 col-md-6 ml-auto mr-auto mb-4">
+                    <img class="w-100 align-middle" src="{{ asset('img/editP.svg')}}" alt="">
+                </div>
+
+                <div class="mw-75 col-md-6">
+                    <div class="mb-5">
+                        {{ form_start(form)}}
+                            <div class="form-group">
+                                <label for="firstname" class="">Prénom</label>
+                                {{ form_errors(form.firstname) }} 
+                                <div class="">
+                                    {{ form_widget (form.firstname) }}
+                                </div>                        
+                            </div>
+
+                            <div class="form-group">
+                                <label for="lastname" class="">Nom de famille</label>
+                                {{ form_errors(form.lastname) }} 
+                                <div class="">
+                                    {{ form_widget (form.lastname) }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="lastname" class="">Adresse email</label>
+                                {{ form_errors(form.email) }} 
+                                <div class="">
+                                    {{ form_widget (form.email) }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="user_form_first" class="">Mot de passe</label>   
+                                {{ form_errors(form.password.first) }}
+                                <div class="">
+                                    {{ form_widget (form.password.first, {'attr': {'class' : 'form-control', 'placeholder': 'Taper votre mot de passe'}}) }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="user_form_second" class="">Répétez le mot de passe</label>
+                                {{ form_errors(form.password.second) }}   
+                                <div class="">
+                                    {{ form_widget (form.password.second, {'attr': {'class' : 'form-control', 'placeholder': 'Retapez le mot de passe'}}) }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="date-naissance" class="">Date de naissance</label>
+                                {{ form_errors(form.birth) }} 
+                                <div class="">
+                                    {{ form_widget (form.birth) }}
+                                    <small>Vous devez avoir 18 ans pour vous inscire.</small>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="zipCode" class="">Code Postal</label>
+                                {{ form_errors(form.zipCode) }} 
+                                <div class="">
+                                    {{ form_widget (form.zipCode, {'attr': {'id':'zipCode' } } ) }}
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="label_city" class="">Ville</label>
+                                {{ form_errors(form.city) }} 
+                                <div class="">
+                                    {{ form_widget (form.city, { 'full_name': 'city'}) }}
+                                    <small>Saisissez le code postal pour sélectionner une ville</small>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Editer</button>
+                        {{form_end(form)}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,80 @@
+App\Entity\Event:
+  event_{1..168}:
+    title: '<word()>'
+    description: '<paragraph()>'
+    image: '<numberBetween(1,5)>.jpg'
+    slug: '<slug()>'
+    status: '<numberBetween(0, 2)>'
+    is_verified: '<numberBetween(0, 2)>'
+    createdAt: '<dateTime()>'
+    updatedAt: '<dateTime()>'
+    startAt: '<dateTime()>'
+    endAt: '<dateTime()>'
+    category: '@category_*'
+    user: '<numberBetween(1,10)>x @user_*'
+    createdBy: '@user_*'
+    zipCode: '<numberBetween(0, 96500)>'
+    city: '<word()>'
+    latitude: '<latitude(-90, 90)>'
+    longitude: '<longitude(-180, 180)>'
+    
+App\Entity\User:
+  user_{1..20}: 
+    email: '<email()>'
+    roles: ["ROLE_USER"]
+    password: '<password()>'
+    firstname: '<firstName()>'
+    lastname: '<lastName()>'
+    birth: '<dateTime()>'
+    status: '<numberBetween(0, 1)>'
+    createdAt: '<dateTime()>'
+    updateAt: '<dateTime()>'
+    zipCode: '<numberBetween(0, 96500)>'
+    city: '<word()>'
+
+
+App\Entity\Comment:
+  comment_{1..100}:
+    content: '<text()>'
+    createdAt: '<dateTime()>'
+    updatedAt: '<dateTime()>'
+    Event: '@event_*'
+    User: '@user_*'
+
+App\Entity\Category:
+  category_1:
+    name: 'Plantation'
+    slug: '<slug()>'
+    createdAt: '<dateTime()>'
+    updatedAt: '<dateTime()>'
+  category_2:
+    name: 'Jardinage'
+    slug: '<slug()>'
+    createdAt: '<dateTime()>'
+    updatedAt: '<dateTime()>'
+  category_3:
+    name: 'Nettoyage'
+    slug: '<slug()>'
+    createdAt: '<dateTime()>'
+    updatedAt: '<dateTime()>'
+  category_4:
+    name: 'Solidarité'
+    slug: '<slug()>'
+    createdAt: '<dateTime()>'
+    updatedAt: '<dateTime()>'
+  category_5:
+    name: 'Sortie'
+    slug: '<slug()>'
+    createdAt: '<dateTime()>'
+    updatedAt: '<dateTime()>'
+  category_6:
+    name: 'Autre'
+    slug: '<slug()>'
+    createdAt: '<dateTime()>'
+    updatedAt: '<dateTime()>'
+  
+
+  
+  
+
+

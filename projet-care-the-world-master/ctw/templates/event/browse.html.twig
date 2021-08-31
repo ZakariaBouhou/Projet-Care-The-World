@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des événements{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('/js/flashes-messages.js') }}"></script>
+{% endblock %}
+
+    {% block main %}
+    <div class="container">
+
+
+        <div class="row mt-3 ml-1">
+            {% for type, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="flash-message alert alert-dismissible alert-{{ type }}">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ message }}
+                </div>
+            {% endfor %}
+            {% endfor %}
+        </div>
+
+        <div class="accordion w-100" id="accordionExample">
+        <div class="card w-100">
+            <div class="card-header w-100" id="headingOne">
+            <h2 class="mb-0">
+                <button class="d-flex justify-content-between btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Filtres  <p class="mb-0 text-primary">&#9660;</p>
+                </button>
+                
+            </h2>
+            </div>
+
+            <div id="collapseOne" class="collapse w-100" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div class="card-body">
+                <div class="filters">
+
+                    {{ form_start(form) }}
+                        
+                        {{ form_label(form.categories) }}
+                        {{ form_widget(form.categories) }}
+                        
+                        {{ form_label(form.zipCode) }}
+                        {{ form_widget(form.zipCode) }}
+
+                        <div>
+                        {{ form_label(form.city) }}
+                        {{ form_widget(form.city) }}
+                        <small>Saisissez le code postal pour sélectionner une ville</small>
+                        </div>
+
+                        {{ form_widget(form.submit)}}
+                        <a class="btn btn-danger mt-3 ml-2"href="{{ path('event_browse') }}">Annuler les filtres</a>
+
+                    {{ form_end(form)}}
+
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+                
+        
+
+        <h3 class="mt-3">Evénements</h3>
+
+        <div class="d-flex justify-content-center justify-content-sm-around justify-content-xl-between flex-wrap mb-3">
+
+            {% if events|length == 0 %}
+            
+                <h4 class="mt-3">Nous n'avons pas trouvé d'événements correspondant à vos critères, mais vous pouvez <a href="{{ path('event_add') }}">en créer un !</a></h4>
+            
+            {% endif %}
+
+            {% for event in events %}
+            
+                {% include "event/_card-template.html.twig" %}
+
+            {% endfor %}
+
+        </div>
+        
+        <div class="paging d-flex justify-content-center">
+            {{ knp_pagination_render(events, 'paging.html.twig') }}
+        </div>
+    </div>
+    {% endblock %}
+
+
